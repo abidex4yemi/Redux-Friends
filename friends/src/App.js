@@ -6,7 +6,7 @@ import { Auth } from './Auth/Auth';
 import { FriendFormView, FriendsListView } from './views/Friends/index';
 import { store } from './redux/store';
 
-function App() {
+export const App = () => {
 	return (
 		<Provider store={store}>
 			<Route exact path="/" component={Login} />
@@ -14,6 +14,4 @@ function App() {
 			<Route exact path="/friends/add" render={props => <Auth {...props} component={FriendFormView} />} />
 		</Provider>
 	);
-}
-
-export default App;
+};
