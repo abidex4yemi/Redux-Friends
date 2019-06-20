@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { addFriend } from '../../redux/actions';
 import { Input, Button } from '../../components/Form';
 
-export const FriendFormView = () => {
+const FriendFormView = props => {
+	const { addFriend } = props;
 	const [form, setFormValues] = useState({
 		name: '',
 		email: '',
@@ -17,7 +20,22 @@ export const FriendFormView = () => {
 	};
 
 	const AddNewFriend = () => {
-		console.log(form);
+		const newFriend = {
+			name: form.name,
+			email: form.email,
+			age: parseInt(form.age, 10)
+		};
+		addFriend(newFriend).then(res => {
+			setFormValues({
+				name: '',
+				email: '',
+				age: '',
+				errors: {}
+			});
+
+			// Redirect to all friends page
+			props.history.push('/friends');
+		});
 	};
 
 	return (
@@ -42,7 +60,7 @@ export const FriendFormView = () => {
 
 			<Input
 				value={form.age}
-				name="password"
+				name="age"
 				placeholder="Enter Friend age..."
 				inputChange={inputChange}
 				type="text"
@@ -52,3 +70,5 @@ export const FriendFormView = () => {
 		</form>
 	);
 };
+
+export default connect(null, { addFriend })(FriendFormView);
