@@ -5,7 +5,7 @@ export const Login = () => {
 	const [form, setFormValues] = useState({
 		username: '',
 		password: '',
-		errors: ''
+		errors: {}
 	});
 
 	const inputChange = (field, value) => {
@@ -27,7 +27,7 @@ export const Login = () => {
 				placeholder="Enter username..."
 				inputChange={inputChange}
 				type="text"
-				error={form.errors.name}
+				error={form.errors.username}
 			/>
 
 			<Input
