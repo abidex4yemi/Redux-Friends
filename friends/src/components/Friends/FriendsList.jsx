@@ -6,7 +6,7 @@ import { Friend } from './Friend';
 export const FriendsList = props => {
 	const { friends } = props;
 
-	return <section>{friends.map(friend => <Friend key={uuid()} friend={friend} />)}</section>;
+	return <section>{friends.map(friend => <Friend key={uuid()} {...friend} />)}</section>;
 };
 
 FriendsList.propTypes = {

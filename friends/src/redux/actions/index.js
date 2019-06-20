@@ -1,4 +1,4 @@
-import { CustomizedAxios } from '../../axios';
+import { customizedAxios } from '../../axios';
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000';
@@ -11,10 +11,48 @@ export const ADD_FRIEND = 'ADD_FRIEND';
 export const UPDATE_FRIEND_INFO = 'UPDATE_FRIEND_INFO';
 
 //Action dispatchers
-export const fetchFriends = () => {
-	return dispatch => {
-		console.log(dispatch);
-	};
+export const fetchFriends = () => dispatch => {
+	dispatch({
+		type: SET_ACTION_STATUS,
+		payload: {
+			fetchingFriends: true
+		}
+	});
+
+	customizedAxios()
+		.get(`${BASE_URL}/api/friends`)
+		.then(res => {
+			// Dispatch loggedIn status
+			dispatch({
+				type: SET_ACTION_STATUS,
+				payload: {
+					fetchingFriends: false
+				}
+			});
+
+			// Dispatch loggedIn status
+			dispatch({
+				type: ADD_FRIENDS,
+				payload: res.data
+			});
+		})
+		.catch(err => {
+			// Dispatch loggedIn status
+			dispatch({
+				type: SET_ACTION_STATUS,
+				payload: {
+					fetchingFriends: false
+				}
+			});
+
+			// Dispatch error status
+			dispatch({
+				type: SET_ACTION_STATUS,
+				payload: {
+					error: err.response.data.error
+				}
+			});
+		});
 };
 
 export const login = credentials => dispatch => {

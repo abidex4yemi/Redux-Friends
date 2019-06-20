@@ -1,2 +1,2 @@
 export { FriendFormView } from './FriendFormView';
-export { FriendsListView } from './FriendsListView';
+export { default as FriendsListView } from './FriendsListView';

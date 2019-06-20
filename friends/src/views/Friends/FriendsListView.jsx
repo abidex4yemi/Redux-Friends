@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchFriends } from '../../redux/actions';
 import { FriendsList } from '../../components/Friends';
 
-export const FriendsListView = props => {
-	const { friends } = props;
+const FriendsListView = props => {
+	const { friends, fetchFriends } = props;
 
-	return (
-		<main>
-			<FriendsList friends={friends} />
-		</main>
-	);
+	useEffect(fetchFriends, []);
+
+	return <main>{friends.length > 0 ? <FriendsList friends={friends} /> : <div>No friends</div>}</main>;
 };
 
 FriendsListView.propTypes = {
@@ -22,3 +22,11 @@ FriendsListView.propTypes = {
 		})
 	)
 };
+
+const mapStateToProps = state => {
+	return {
+		friends: state.friendsReducer.friends
+	};
+};
+
+export default connect(mapStateToProps, { fetchFriends })(FriendsListView);
