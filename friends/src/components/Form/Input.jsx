@@ -27,3 +27,7 @@ Input.propTypes = {
 	inputChange: PropTypes.func.isRequired,
 	error: PropTypes.string
 };
+
+Input.defaultProps = {
+	type: 'text'
+};
