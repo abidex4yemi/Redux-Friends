@@ -11,6 +11,52 @@ export const ADD_FRIEND = 'ADD_FRIEND';
 export const UPDATE_FRIEND_INFO = 'UPDATE_FRIEND_INFO';
 
 //Action dispatchers
+export const deleteFriend = id => dispatch => {
+	dispatch({
+		type: SET_ACTION_STATUS,
+		payload: {
+			removingFriend: true
+		}
+	});
+
+	return customizedAxios()
+		.delete(`${BASE_URL}/api/friends/${id}`)
+		.then(res => {
+			// Dispatch savingFriend status
+			dispatch({
+				type: SET_ACTION_STATUS,
+				payload: {
+					removingFriend: false
+				}
+			});
+
+			// Dispatch add_friends status
+			dispatch({
+				type: DELETE_FRIEND,
+				payload: res.data
+			});
+
+			return res;
+		})
+		.catch(err => {
+			// Dispatch loggedIn status
+			dispatch({
+				type: SET_ACTION_STATUS,
+				payload: {
+					removingFriend: false
+				}
+			});
+
+			// Dispatch error status
+			dispatch({
+				type: SET_ACTION_STATUS,
+				payload: {
+					error: err.response.data.error
+				}
+			});
+		});
+};
+
 export const addFriend = newFriend => dispatch => {
 	dispatch({
 		type: SET_ACTION_STATUS,

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Friend } from './Friend';
 
 export const FriendsList = props => {
-	const { friends } = props;
+	const { friends, deleteFriend } = props;
 
-	return <section>{friends.map(friend => <Friend key={uuid()} {...friend} />)}</section>;
+	return <section>{friends.map(friend => <Friend key={uuid()} {...friend} deleteFriend={deleteFriend} />)}</section>;
 };
 
 FriendsList.propTypes = {
@@ -17,5 +17,6 @@ FriendsList.propTypes = {
 			age: PropTypes.number,
 			email: PropTypes.string
 		})
-	)
+	),
+	deleteFriend: PropTypes.func.isRequired
 };

@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchFriends } from '../../redux/actions';
+import { fetchFriends, deleteFriend } from '../../redux/actions';
 import { FriendsList } from '../../components/Friends';
 
 const FriendsListView = props => {
-	const { friends, fetchFriends } = props;
+	const { friends, fetchFriends, deleteFriend } = props;
 
 	useEffect(fetchFriends, []);
 
-	return <main>{friends.length > 0 ? <FriendsList friends={friends} /> : <div>No friends</div>}</main>;
+	return (
+		<main>
+			{friends.length > 0 ? <FriendsList friends={friends} deleteFriend={deleteFriend} /> : <div>No friends</div>}
+		</main>
+	);
 };
 
 FriendsListView.propTypes = {
@@ -20,7 +24,9 @@ FriendsListView.propTypes = {
 			age: PropTypes.number,
 			email: PropTypes.string
 		})
-	)
+	),
+	deleteFriend: PropTypes.func.isRequired,
+	fetchFriends: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -29,4 +35,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, { fetchFriends })(FriendsListView);
+export default connect(mapStateToProps, { fetchFriends, deleteFriend })(FriendsListView);
