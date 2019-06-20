@@ -65,10 +65,4 @@ const Login = props => {
 	);
 };
 
-const mapStateToProps = state => {
-	return {
-		loggedIn: state.friendsReducer.loggedIn
-	};
-};
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { login })(Login);

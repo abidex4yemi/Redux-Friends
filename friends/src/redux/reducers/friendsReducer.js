@@ -8,7 +8,6 @@ const InitialState = {
 	savingFriend: false,
 	updatingFriend: false,
 	removingFriend: false,
-	loggedIn: false,
 	error: null
 };
 
