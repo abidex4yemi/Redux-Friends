@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FriendsList } from '../Friends';
+import { FriendsList } from '../../components/Friends';
 
 export const FriendsListView = props => {
 	const { friends } = props;

@@ -39,6 +39,6 @@ export const friendsReducer = (state = InitialState, action) => {
 				friends: action.payload
 			};
 		default:
-			break;
+			return state;
 	}
 };
