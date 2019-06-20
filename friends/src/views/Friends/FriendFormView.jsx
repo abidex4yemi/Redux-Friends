@@ -17,7 +17,7 @@ export const FriendFormView = () => {
 	};
 
 	const AddNewFriend = () => {
-		console.log('login');
+		console.log(form);
 	};
 
 	return (

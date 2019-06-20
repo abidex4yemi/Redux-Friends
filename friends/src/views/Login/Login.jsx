@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions';
 import { Input, Button } from '../../components/Form';
 
-export const Login = () => {
+const Login = props => {
+	// get login from action creators
+	const { login } = props;
+
+	//form state
 	const [form, setFormValues] = useState({
 		username: '',
 		password: '',
@@ -15,8 +21,24 @@ export const Login = () => {
 		});
 	};
 
-	const login = () => {
-		console.log('login');
+	const handleLogin = () => {
+		const credentials = {
+			username: form.username,
+			password: form.password
+		};
+
+		login(credentials).then(res => {
+			setFormValues({
+				username: '',
+				password: '',
+				errors: {}
+			});
+
+			// if logged in successful redirect to friends list
+			if (localStorage.getItem('token')) {
+				props.history.push('/friends');
+			}
+		});
 	};
 
 	return (
@@ -38,7 +60,15 @@ export const Login = () => {
 				type="password"
 				error={form.errors.password}
 			/>
-			<Button buttonText="login" onclick={login} type="button" />
+			<Button buttonText="login" onclick={handleLogin} type="button" />
 		</form>
 	);
 };
+
+const mapStateToProps = state => {
+	return {
+		loggedIn: state.friendsReducer.loggedIn
+	};
+};
+
+export default connect(mapStateToProps, { login })(Login);

@@ -8,6 +8,7 @@ const InitialState = {
 	savingFriend: false,
 	updatingFriend: false,
 	removingFriend: false,
+	loggedIn: false,
 	error: null
 };
 
@@ -16,7 +17,7 @@ export const friendsReducer = (state = InitialState, action) => {
 		case SET_ACTION_STATUS:
 			return {
 				...state,
-				...action.payload.status
+				...action.payload
 			};
 		case ADD_FRIENDS:
 			return {
