@@ -127,13 +127,10 @@ export const login = credentials => dispatch => {
 	return axios
 		.post(`${BASE_URL}/api/login`, credentials)
 		.then(res => {
-			// Save token to local storage
-			localStorage.setItem('token', res.data.payload);
-
 			// Dispatch loggedIn status
 			dispatch({
 				type: SET_ACTION_STATUS,
-				payload: { loggingIn: false }
+				payload: { loggingIn: false, token: res.data.payload }
 			});
 
 			return res;
